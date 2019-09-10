@@ -115,9 +115,10 @@ services:
       - INVENIO_ROLE_COMMUNITY=Community Administrator
       - FLASK_DEBUG=1
       - SEARCH_INDEX_PREFIX=tenant2
+      - INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2
     volumes:
       - weko3_data2:/var/tmp
-      - static_data2:/home/invenio/.virtualenvs/invenio/var/instance/static
+      - static_data2:/home/invenio/.virtualenvs/invenio/var/instance2/static
       - type: bind
         source: .
         target: /code
