@@ -25,7 +25,7 @@ services:
     restart: "always"
     # build: .
     image: weko_web
-    command: /bin/bash -c "rm -f /code/celeryd.pid; celery worker -A invenio_app.celery --loglevel=INFO -B -D && uwsgi --ini /code/scripts/uwsgi.ini"
+    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery worker -A invenio_app.celery --loglevel=INFO -B -D --pid-file=/tmp/celeryd.pid && uwsgi --ini /code/scripts/uwsgi.ini"
     environment:
       - PATH=/home/invenio/.virtualenvs/invenio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
@@ -90,7 +90,7 @@ services:
     restart: "always"
     # build: .
     image: weko_web
-    command: /bin/bash -c "rm -f /code/celeryd2.pid; celery worker -A invenio_app.celery --loglevel=INFO -B -D && uwsgi --ini /code/scripts/uwsgi2.ini"
+    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery worker -A invenio_app.celery --loglevel=INFO -B -D --pid-file=/tmp/celeryd.pid&& uwsgi --ini /code/scripts/uwsgi2.ini"
     environment:
       - PATH=/home/invenio/.virtualenvs/invenio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
@@ -115,10 +115,9 @@ services:
       - INVENIO_ROLE_COMMUNITY=Community Administrator
       - FLASK_DEBUG=1
       - SEARCH_INDEX_PREFIX=tenant2
-      - INVENIO_INSTANCE_PATH=/home/invenio/.virtualenvs/invenio/var/instance2
     volumes:
       - weko3_data2:/var/tmp
-      - static_data2:/home/invenio/.virtualenvs/invenio/var/instance2/static
+      - static_data2:/home/invenio/.virtualenvs/invenio/var/instance/static
       - type: bind
         source: .
         target: /code
