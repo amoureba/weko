@@ -25,7 +25,7 @@ services:
     restart: "always"
     # build: .
     image: weko_web
-    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery worker -A invenio_app.celery --loglevel=INFO -B -D --pid-file=/tmp/celeryd.pid && uwsgi --ini /code/scripts/uwsgi.ini"
+    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery multi start -A invenio_app.celery --loglevel=INFO -B --pid-file=/tmp/celeryd.pid && uwsgi --ini /code/scripts/uwsgi.ini"
     environment:
       - PATH=/home/invenio/.virtualenvs/invenio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
@@ -53,31 +53,6 @@ services:
     volumes:
       - weko3_data:/var/tmp
       - static_data:/home/invenio/.virtualenvs/invenio/var/instance/static
-      - type: bind
-        source: .
-        target: /code
-      - /code/modules/invenio-oaiserver/invenio_oaiserver.egg-info
-      - /code/modules/weko-theme/weko_theme.egg-info
-      - /code/modules/weko-itemtypes-ui/weko_itemtypes_ui.egg-info
-      - /code/modules/weko-items-ui/weko_items_ui.egg-info
-      - /code/modules/weko-accounts/weko_accounts.egg-info
-      - /code/modules/weko-admin/weko_admin.egg-info
-      - /code/modules/weko-logging/weko_logging.egg-info
-      - /code/modules/weko-gridlayout/weko_gridlayout.egg-info
-      - /code/modules/weko-groups/weko_groups.egg-info
-      - /code/modules/weko-search-ui/weko_search_ui.egg-info
-      - /code/modules/weko-records/weko_records.egg-info
-      - /code/modules/weko-records-ui/weko_records_ui.egg-info
-      - /code/modules/weko-schema-ui/weko_schema_ui.egg-info
-      - /code/modules/weko-index-tree/weko_index_tree.egg-info
-      - /code/modules/weko-user-profiles/weko_user_profiles.egg-info
-      - /code/modules/weko-deposit/weko_deposit.egg-info
-      - /code/modules/weko-authors/weko_authors.egg-info
-      - /code/modules/weko-workflow/weko_workflow.egg-info
-      - /code/modules/weko-indextree-journal/weko_indextree_journal.egg-info
-      - /code/modules/weko-bulkupdate/weko_bulkupdate.egg-info
-      - /code/modules/weko-items-autofill/weko_items_autofill.egg-info
-      - /code/modules/weko-sitemap/weko_sitemap.egg-info
     user: invenio
     links:
       - postgresql
@@ -90,7 +65,7 @@ services:
     restart: "always"
     # build: .
     image: weko_web
-    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery worker -A invenio_app.celery --loglevel=INFO -B -D --pid-file=/tmp/celeryd.pid&& uwsgi --ini /code/scripts/uwsgi2.ini"
+    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery multi start -A invenio_app.celery --loglevel=INFO -B --pid-file=/tmp/celeryd.pid&& uwsgi --ini /code/scripts/uwsgi2.ini"
     environment:
       - PATH=/home/invenio/.virtualenvs/invenio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
@@ -118,31 +93,6 @@ services:
     volumes:
       - weko3_data2:/var/tmp
       - static_data2:/home/invenio/.virtualenvs/invenio/var/instance/static
-      - type: bind
-        source: .
-        target: /code
-      - /code/modules/invenio-oaiserver/invenio_oaiserver.egg-info
-      - /code/modules/weko-theme/weko_theme.egg-info
-      - /code/modules/weko-itemtypes-ui/weko_itemtypes_ui.egg-info
-      - /code/modules/weko-items-ui/weko_items_ui.egg-info
-      - /code/modules/weko-accounts/weko_accounts.egg-info
-      - /code/modules/weko-admin/weko_admin.egg-info
-      - /code/modules/weko-logging/weko_logging.egg-info
-      - /code/modules/weko-gridlayout/weko_gridlayout.egg-info
-      - /code/modules/weko-groups/weko_groups.egg-info
-      - /code/modules/weko-search-ui/weko_search_ui.egg-info
-      - /code/modules/weko-records/weko_records.egg-info
-      - /code/modules/weko-records-ui/weko_records_ui.egg-info
-      - /code/modules/weko-schema-ui/weko_schema_ui.egg-info
-      - /code/modules/weko-index-tree/weko_index_tree.egg-info
-      - /code/modules/weko-user-profiles/weko_user_profiles.egg-info
-      - /code/modules/weko-deposit/weko_deposit.egg-info
-      - /code/modules/weko-authors/weko_authors.egg-info
-      - /code/modules/weko-workflow/weko_workflow.egg-info
-      - /code/modules/weko-indextree-journal/weko_indextree_journal.egg-info
-      - /code/modules/weko-bulkupdate/weko_bulkupdate.egg-info
-      - /code/modules/weko-items-autofill/weko_items_autofill.egg-info
-      - /code/modules/weko-sitemap/weko_sitemap.egg-info
     user: invenio
     links:
       - postgresql
