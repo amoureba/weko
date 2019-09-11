@@ -35,8 +35,8 @@ services:
       - INVENIO_USER_EMAIL=info@inveniosoftware.org
       - INVENIO_USER_PASS=uspass123
       - INVENIO_POSTGRESQL_HOST=postgresql
-      - INVENIO_POSTGRESQL_DBNAME=invenio
-      - INVENIO_POSTGRESQL_DBUSER=invenio
+      - INVENIO_POSTGRESQL_DBNAME=invenio1
+      - INVENIO_POSTGRESQL_DBUSER=invenio1
       - INVENIO_POSTGRESQL_DBPASS=dbpass123
       - INVENIO_REDIS_HOST=redis
       - INVENIO_ELASTICSEARCH_HOST=elasticsearch
@@ -76,7 +76,7 @@ services:
       - INVENIO_USER_PASS=uspass123
       - INVENIO_POSTGRESQL_HOST=postgresql
       - INVENIO_POSTGRESQL_DBNAME=invenio2
-      - INVENIO_POSTGRESQL_DBUSER=invenio
+      - INVENIO_POSTGRESQL_DBUSER=invenio2
       - INVENIO_POSTGRESQL_DBPASS=dbpass123
       - INVENIO_REDIS_HOST=redis
       - INVENIO_ELASTICSEARCH_HOST=elasticsearch
@@ -105,10 +105,11 @@ services:
     restart: "always"
     image: postgres
     environment:
+      - POSTGRES_PASSWORD=dbpass123
       - POSTGRES_USER=invenio
       - POSTGRES_DB=invenio
-      - POSTGRES_PASSWORD=dbpass123
     volumes:
+      - ./sql:/docker-entrypoint-initdb.d
       - pgsql-data:/var/lib/postgresql/data
     ports:
      - "25401:5432"
