@@ -104,9 +104,9 @@ set -o nounset
 
 if [[ "$@" != *"--devel"* ]]; then
 # sphinxdoc-install-invenio-full-begin
-    pip install -r "$scriptpathname/../packages.txt"
-    pip install --no-deps -r "$scriptpathname/../packages-invenio.txt"
-    pip install --no-deps -r "$scriptpathname/../requirements-weko-modules.txt"
+    pip install -r "$scriptpathname/../packages.txt"  --src /usr/local/src
+    pip install --no-deps -r "$scriptpathname/../packages-invenio.txt"  --src /usr/local/src
+    pip install --no-deps -r "$scriptpathname/../requirements-weko-modules.txt" --src /usr/local/src
 # sphinxdoc-install-invenio-full-end
 else
     pip install -r "$scriptpathname/../requirements-devel.txt"

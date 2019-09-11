@@ -42,13 +42,15 @@ COPY scripts/provision-web.sh /tmp/
 RUN /tmp/provision-web.sh
 
 # Add Weko sources to `code` and work there:
+COPY . /code
 WORKDIR /code
-ADD . /code
+#WORKDIR /code
+#ADD . /code
 
 # Run container as user `weko` with UID `1000`, which should match
 # current host user in most situations:
-RUN adduser --uid 1000 --disabled-password --gecos '' invenio && \
-    chown -R invenio:invenio /code
+RUN mkdir -p /usr/local/src && adduser --uid 1000 --disabled-password --gecos '' invenio && \
+    chown -R invenio:invenio /code && chown -R invenio /usr/local/src
 USER invenio
 
 # Create Weko instance:
