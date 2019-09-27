@@ -25,7 +25,7 @@ services:
     restart: "always"
     # build: .
     image: mhaya55/weko_web:latest
-    command: /bin/bash -c "rm -f /tmp/celeryd.pid; celery multi start -A invenio_app.celery --loglevel=INFO -B --pid-file=/tmp/celeryd.pid && uwsgi --ini /code/scripts/uwsgi.ini"
+    command: /bin/bash -c "jinja2 /code/scripts/instance.cfg > /home/invenio/.virtualenvs/invenio/var/instance/invenio.cfg;rm -f /tmp/celeryd.pid; celery multi start -A invenio_app.celery --loglevel=INFO -B --pid-file=/tmp/celeryd.pid && uwsgi --ini /code/scripts/uwsgi.ini"
     environment:
       - PATH=/home/invenio/.virtualenvs/invenio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
@@ -39,6 +39,9 @@ services:
       - INVENIO_POSTGRESQL_DBUSER=invenio1
       - INVENIO_POSTGRESQL_DBPASS=dbpass123
       - INVENIO_REDIS_HOST=redis
+      - REDIS_CACHE=0
+      - REDIS_SESSION=1
+      - REDIS_CELERY=2
       - INVENIO_ELASTICSEARCH_HOST=elasticsearch
       - INVENIO_RABBITMQ_HOST=rabbitmq
       - INVENIO_WORKER_HOST=127.0.0.1
@@ -79,6 +82,9 @@ services:
       - INVENIO_POSTGRESQL_DBUSER=invenio2
       - INVENIO_POSTGRESQL_DBPASS=dbpass123
       - INVENIO_REDIS_HOST=redis
+      - REDIS_CACHE=3
+      - REDIS_SESSION=4
+      - REDIS_CELERY=5
       - INVENIO_ELASTICSEARCH_HOST=elasticsearch
       - INVENIO_RABBITMQ_HOST=rabbitmq
       - INVENIO_WORKER_HOST=127.0.0.1
