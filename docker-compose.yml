@@ -109,7 +109,7 @@ services:
       - "5002:5000"
   postgresql:
     restart: "always"
-    image: postgres
+    image: postgres:11-alpine
     environment:
       - POSTGRES_PASSWORD=dbpass123
       - POSTGRES_USER=invenio
@@ -142,7 +142,7 @@ services:
       - "29301:9300"
   rabbitmq:
     restart: "always"
-    image: rabbitmq
+    image: rabbitmq:alpine
     ports:
       - "24301:4369"
       - "45601:25672"
